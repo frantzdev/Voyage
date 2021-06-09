@@ -11,45 +11,39 @@
             <div class="dropdown" @click="displayDropdown = !displayDropdown"><i class="fas fa-bars"></i>
                 <transition name="fade">
                     <div class="dropdown-child" v-if="displayDropdown">
-                        <a href="#"><i class="fas fa-user"></i>Mon compte</a>
+                        <a href="#" @click="displayModaleAccount"><i class="fas fa-user"></i>Mon compte</a>
                         <a href="#"><i class="fas fa-headset"></i>Support 24H/7</a>
                         <a href="#"><i class="far fa-moon"></i>Dark mode</a>
                     </div>
                  </transition>
             </div>
         </nav>
+        <AccountModale :displayModale="displayModale" :displayModaleAccount="displayModaleAccount"/>
     </header>
 </template>
 
 <script>
+import AccountModale from '../components/AccountModale'
     export default {
         name: "Header",
-
+        components: {
+            AccountModale
+        },    
         data() {
             return {
-                displayDropdown: false
+                displayDropdown: false,
+                displayModale: false
+            }
+        },
+        methods: {
+            displayModaleAccount() {
+                this.displayModale = !this.displayModale;
             }
         }
     }
 </script>
 
-<style scoped>
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .8s;
-    }
-    .fade-enter, .fade-leave-to {
-        opacity: 0;
-    }
-
-    .overlay {
-        background: rgba(0, 0, 0, 0.5);
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-
+<style scoped>   
     header {
         display: flex;
         justify-content: center;
@@ -90,18 +84,35 @@
         text-align: start;
         border-radius: 10px;
         padding: 10px;
-        background-color: #1f1f1f;
+        background-color: #f2f2f2;
     }
 
     .dropdown-child a {       
-        color: white;
-        padding: 20px 10px;
-        text-decoration: none;        
+        color: #1f1f1f;
+        padding: 10px;
+        margin: 5px 0;
+        text-decoration: none;  
+        border-radius: 20px;     
+    }
+
+    a:hover {
+        background-color: #1f1f1f;
+        color: #f1f1f1;
+        animation: essai 2s ease;
     }
 
     .fa-user,
     .fa-headset,
     .fa-moon {
         padding: 0 10px 0 0;
+    }
+
+    @keyframes essai {
+        from {
+            opacity: 0.3;
+        }
+        to {
+            opacity: 1
+        }
     }
 </style>

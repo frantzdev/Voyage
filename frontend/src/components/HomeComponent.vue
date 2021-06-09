@@ -4,8 +4,8 @@
       <img src="../assets/nuage.jpg" alt="Vu d'un alignement de planète" class="active">
       <img src="../assets/volcan.jpg" alt="Un volcan en erruption" >
       <img src="../assets/glace.jpg" alt="Une petit lac dans un canyon de glace" >
-      <h1>Le petit explorateur</h1>
-      <p class="firstLine">Le tourisme dans l'univers et l'inconnu</p>
+      <!-- <h1>Le petit explorateur</h1> -->
+      <p class="firstLine">Le tourisme dans l'univers</p>
       <p class="secondLine">est maintenant ...</p>
       <p class="thirdLine">Accessible à tous !</p>
     <router-link to="/destination">
