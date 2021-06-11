@@ -12,7 +12,7 @@
                 <transition name="fade">
                     <div class="dropdown-child" v-if="displayDropdown">
                         <a href="#" @click="displayModaleAccount"><i class="fas fa-user"></i>Mon compte</a>
-                        <a href="#"><i class="fas fa-headset"></i>Support 24H/7</a>
+                        <a href="#" @click="displayModaleAccount"><i class="fas fa-headset"></i>Support 24H/7</a>
                         <a href="#"><i class="far fa-moon"></i>Dark mode</a>
                     </div>
                  </transition>

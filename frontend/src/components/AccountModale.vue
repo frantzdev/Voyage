@@ -1,26 +1,30 @@
 <template>
  <transition name="fade">
     <div class="bloc-modale" v-if="displayModale">
-        <div class="overlay" @click="displayModaleAccount"></div>
+        <div class="overlay" @click="displayModaleAccount(); displaySuscribe = false"></div>
 
         <div class="modale-card">
             <div class="container-button">
-                <p>Créez votre compte</p>
-                <button class="btn-modale" role="button" type="button" @click="displayModaleAccount">X</button>
+                <h2>Créez votre compte</h2>
+                <button class="btn-modale" role="button" type="button" @click="displayModaleAccount(); displaySuscribe = false">X</button>
             </div>
+            
             <div class="bloc-account">
                 <div class="bloc-suscribe">
-                    <a href="#" title="s'inscrire" @click="displayModaleAccount">Créer mon compte</a>
+                    <a href="#" title="s'inscrire" @click="displayFormSuscribe">Créer mon compte</a>
                 </div>
                 <div class="bloc-login">
+                    <h3>J'ai déjà un compte</h3>
                     <form action="">
-                        <p>J'ai déjà un compte</p>
-                        <input type="email" placeholder="Email" class="input-email">
-                        <input type="password" placeholder="********" class="input-password">
+                        <label for="email-login">Entrez votre email</label>
+                        <input type="email" placeholder="Email" id="email-login" required>
+                        <label for="password-login">Entrez votre mot de passe</label>
+                        <input type="password" placeholder="********" id="password-login" autocomplete="off" required>
                         <button type="button" role="submit" class="suscribe-button">Valider</button>
                     </form>
                 </div>
             </div>
+            <FormSuscribe :displaySuscribe="displaySuscribe"/>
         </div>
     </div>
 </transition>   
@@ -28,9 +32,24 @@
 </template>
 
 <script>
+import FormSuscribe from '../components/FormSuscribe.vue'
     export default {
         name: "AccountModale",
-        props: ['displayModale', 'displayModaleAccount']
+        components: {
+            FormSuscribe
+        },
+        props: ['displayModale', 'displayModaleAccount'],
+        data() {
+            return {
+                displaySuscribe: false
+            }
+        },
+
+        methods: {
+            displayFormSuscribe() {
+                this.displaySuscribe = !this.displaySuscribe;
+            }
+        }
     }
 </script>
 
@@ -46,21 +65,25 @@
         border-radius: 20px;
         overflow: hidden;
         font-size: 1.2rem;
+        flex-wrap: wrap;
     }
 
     .container-button {
-        background-color: #1f1f1f;
-        padding: 10px;
+        background-color: #2f2f2f;
+        padding: 0 20px;
         display: flex;
         justify-content: space-between;
-        color: white;
-        padding: 0 20px;
+        color: #f1f1f1;
         position: relative;
+    }
+
+    h2 {
+        margin: 10px 0;
     }
 
     .btn-modale {
         background-color: red;
-        color: white;
+        color: #f1f1f1;
         font-size: 20px;
         font-weight: bold;
         cursor: pointer;
@@ -73,7 +96,6 @@
 
     .bloc-account {
         padding: 0 10px;
-        color: red;
         display: flex;
         justify-content: space-between;
         background-color: #f1f1f1;
@@ -83,57 +105,50 @@
 
     .bloc-suscribe {
         padding: 70px 0;
-        margin: 10px 0;
         width: 100%;
-        border-right: 2px solid #1f1f1f;
+        border-right: 1px solid rgba(0, 0, 0, 0.3);
         align-self: center;
     }
 
     .bloc-suscribe a {
         text-decoration: none;
         color: red;
+        font-size: 1.17em;
+        font-weight: bold;
     }
 
     .bloc-login {
         margin: 10px 0;
         width: 100%;
-        border-right: 2px solid black;
-        border: none;
     }
 
-    .input-email,
-    .input-password {
-        margin: 10px 0;
+    #email-login,
+    #password-login {
+        width: 70%;
+        margin: 10px 10px;
         padding: 10px;
         border-radius: 5px;
-        border: 1px solid rgba(0, 0, 0, 0.5);
-        width: 70%;
-    }
-
-    .input-email::placeholder,
-    .input-password::placeholder {
-        color: red;
-    }
-
-    .suscribe-button {
-        margin-top: 10px;
-        border-radius: 10px;
-        padding: 10px 0;
-        width: 40%;
-        background-color: #1f1f1f;
-        color: #f1f1f1;
-        border: none;
+        border: 1px solid rgba(0, 0, 0, 0.3);
     }
 
     @media all and (max-width: 767px) {
         .bloc-account {
             flex-direction: column;
         }
-    }
-
-    @media all and (max-width: 767px) {
-        .bloc-suscribe {
+         .bloc-suscribe {
             padding: 10px;
+        }
+
+        #email,
+        #password,
+        #firstname,
+        #lastname,
+        #birthdate {
+            width: 70%;
+        }
+
+        #country {
+            width: 77%;
         }
     }
 </style>

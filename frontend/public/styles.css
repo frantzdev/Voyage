@@ -18,3 +18,13 @@ body {
 .fade-enter, .fade-leave-to {
     opacity: 0;
 }
+
+.suscribe-button {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px 0;
+    width: 40%;
+    background-color: #2f2f2f;
+    color: #f1f1f1;
+    border: none;
+}
