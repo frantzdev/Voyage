@@ -23,6 +23,7 @@
 <script>
 import Header from "../components/Header.vue"
 import Footer from "../components/Footer.vue"
+import {mapState} from 'vuex'
 export default {
     name: 'Destination',
     components: {
@@ -57,10 +58,12 @@ export default {
                         photo: require("@/assets/gob.jpg"),
                         title: "La planete gob"
                     }
-            ]
-
-            
+            ]            
         }    
+    },
+
+    computed: {  /* test*/
+        ...mapState(['image', 'title', 'range', 'price']) 
     }
 }
 </script>
