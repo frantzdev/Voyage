@@ -1,154 +1,173 @@
 <template>
-     <div v-if="displaySuscribe" class="blocFormSuscribe">
-                <h3>Remplissez le formulaire pour vous inscrire</h3>
-                <form action="" >
-                  <div class="container-input"> 
-                    <div class="container-input__column">
-                        <label for="email">Votre email</label>             
-                        <input type="email" placeholder="Email" id="email" autocomplete="off" v-model.lazy="$v.email.$model" required>
-                        <small v-if="!$v.email.isUnique">Veuillez entrer un email valide</small>
-                    </div>
-                    <div class="container-input__column">
-                        <label for="password">Votre mot de passe</label>
-                        <input type="password" placeholder="Mot de passe, (8 caractères mini)" id="password" autocomplete="off" v-model.trim="$v.password.$model" required>
-                        <small v-if="!$v.password.isUnique">Requis 1 chiffre, 1 majuscule</small>
-                     </div>
-                    <div class="container-input__column">
-                        <label for="firstname">Votre prénom</label>
-                        <input type="text" placeholder="Prénom" id="firstname" autocomplete="off" v-model.trim="$v.firstname.$model" required>
-                        <small v-if="!$v.firstname.minLength">Prénom trop court</small>
-                        <small v-if="!$v.firstname.isUnique">Caractère non accepté</small>
-                     </div>
-                    <div class="container-input__column">
-                        <label for="lastname">Votre nom</label>
-                        <input type="text" placeholder="Nom" id="lastname" autocomplete="off" v-model.trim="$v.lastname.$model" required>
-                        <small v-if="!$v.lastname.minLength">Nom trop court</small>
-                        <small v-if="!$v.lastname.isUnique">Caractère non accepté</small>
-                    </div>
-                    <div class="container-input__column">
-                        <label for="birthdate">Date d'anniversaire</label>
-                        <input placeholder="Date de naissance (dd/mm/yyyy)" id="birthdate" name="birthdate"
-                        type="text" v-model.lazy="$v.birthdate.$model" required>
-                        <small v-if="!$v.birthdate.isUnique">Le format n'est pas correct</small>
-                    </div>
-                    <div class="container-input__column">
-                        <label for="country">Selectionner votre nationalité</label>
-                        <select placeholder id="country">
-                            <option value="espagne">Espagne</option>
-                            <option value="france" selected>France</option>
-                            <option value="italie">Italie</option>
-                            <option value="royaume-uni">Royaume-Uni</option>
-                            <option value="canada">Canada</option>
-                            <option value="etats-unis">États-Unis</option>
-                            <option value="chine">Chine</option>
-                            <option value="japon">Japon</option>
-                        </select>  
-                    </div>                      
-                    <div class="bloc-checkbox">
-                        <label for="checkbox">Cliquer pour confirmer la politique de confidentialité</label>
-                        <input type="checkbox" id="checkbox" required>
-                        <p>J'accepte la politique de confidentialité</p>
-                    </div>
-                    <button type="button" role="submit" class="suscribe-button">Valider</button>
-                </div>     
-                </form>
+    <div v-if="displaySuscribe" class="blocFormSuscribe">
+        <h3>Remplissez le formulaire pour vous inscrire</h3>
+        <form action="" @submit.prevent="submit">
+            <div class="container-input">
+                <div class="container-input__column">
+                    <label for="email">Votre email</label>
+                    <input type="email" placeholder="Email" id="email" autocomplete="off"
+                        v-model.trim.lazy="$v.email.$model" required>
+                    <div class="error" v-if="!$v.email.isUnique">Veuillez entrer un email valide</div>
+                </div>
+                <div class="container-input__column">
+                    <label for="password">Votre mot de passe</label>
+                    <input type="password" placeholder="Mot de passe, (8 caractères mini)" id="password"
+                        autocomplete="off" v-model.trim="$v.password.$model" required>
+                    <div class="error" v-if="!$v.password.isUnique">Requis 1 chiffre, 1 majuscule</div>
+                </div>
+                <div class="container-input__column">
+                    <label for="firstname">Votre prénom</label>
+                    <input type="text" placeholder="Prénom" id="firstname" autocomplete="off"
+                        v-model.trim.lazy="$v.firstname.$model" required>
+                    <div class="error" v-if="!$v.firstname.minLength">Requis {{$v.firstname.$params.minLength.min}}
+                        lettres minimum</div>
+                    <div class="error" v-if="!$v.firstname.isUnique">Caractère non accepté</div>
+                </div>
+                <div class="container-input__column">
+                    <label for="lastname">Votre nom</label>
+                    <input type="text" placeholder="Nom" id="lastname" autocomplete="off"
+                        v-model.trim.lazy="$v.lastname.$model" required>
+                    <div class="error" v-if="!$v.lastname.minLength">Requis {{$v.lastname.$params.minLength.min}}
+                        lettres minimum</div>
+                    <div class="error" v-if="!$v.lastname.isUnique">Caractère non accepté</div>
+                </div>
+                <div class="container-input__column bloc-date">
+                    <label for="birthdate">Date d'anniversaire</label>
+                    <input placeholder="Date de naissance (dd/mm/yyyy)" id="birthdate" name="birthdate" type="date"
+                        v-model="birthdate" required>
+                </div>
+                <div class="container-input__column">
+                    <label for="country">Selectionner votre nationalité</label>
+                    <select id="country" v-model="selected" required>
+                        <option disabled value=""> Pays</option>
+                        <option>Espagne</option>
+                        <option>France</option>
+                        <option>Italie</option>
+                        <option>Royaume-Uni</option>
+                        <option>Canada</option>
+                        <option>États-Unis</option>
+                        <option>Chine</option>
+                        <option>Japon</option>
+                    </select>
+                </div>
+                <div class="bloc-checkbox">
+                    <label for="checkbox">Cliquer pour confirmer la politique de confidentialité</label>
+                    <input type="checkbox" id="checkbox" v-model="checked" required>
+                    <p>J'accepte la politique de confidentialité</p>
+                </div>
+                <button type="submit" role="submit" class="suscribe-button"
+                    :disabled="submitStatus === 'PENDING'">Valider</button>
             </div>
+        </form>
+                <div>
+                    <p class="submitAlert" v-if="submitStatus === 'OK'">Merci pour votre inscription !</p>
+                    <p class="submitAlert" v-if="submitStatus === 'ERROR'">veuillez remplir tout les champs</p>
+                    <p class="submitAlert" v-if="submitStatus === 'PENDING'">Transmission...</p>
+                </div>
+    </div>
 </template>
 
 <script>
-import { minLength } from 'vuelidate/lib/validators';
-export default {
-    name: 'FormSuscribe',
-    props : ["displaySuscribe"],
+    import { minLength } from 'vuelidate/lib/validators';
+    export default {
+        name: 'FormSuscribe',
+        props: ["displaySuscribe"],
 
-    data() {
-        return {
-            email: "",
-            password: "",
-            firstname: "",
-            lastname: "",
-            birthdate: ""
-        }
-    },
+        data() {
+            return {
+                email: "",
+                password: "",
+                firstname: "",
+                lastname: "",
+                birthdate: "",
+                selected: "",
+                checked: "",
+                submitStatus: null
+            }
+        },
 
-     validations: {
-            birthdate: {
-                isUnique(value) {
-                    if(value === "") return true
-                    let regexDate = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-                    return regexDate.test(value);                    
-                }
-            },
+        validations: {
             email: {
                 isUnique(value) {
-                    if(value === "") return true
+                    if (value === "") return true
                     let regexEmail = /(.+)@(.+){2,}\.(.+){2,}/;
-                    return regexEmail.test(value);                    
+                    return regexEmail.test(value);
                 }
             },
             password: {
                 isUnique(value) {
-                    if(value === "") return true
+                    if (value === "") return true
                     let regexPassword = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
                     return regexPassword.test(value);
                 }
             },
             firstname: {
                 minLength: minLength(2),
-                isUnique (value) {
-                    if(value === "") return true
+                isUnique(value) {
+                    if (value === "") return true
                     let regexFirstname = /^[A-Za-zéèê'à -]{0,30}$/;
                     return regexFirstname.test(value);
                 }
             },
             lastname: {
                 minLength: minLength(2),
-                isUnique (value) {
-                    if(value === "") return true
+                isUnique(value) {
+                    if (value === "") return true
                     let regexLastname = /^[A-Za-zéèê'à -]{0,30}$/;
                     return regexLastname.test(value);
                 }
             }
+        },
+
+        methods: {
+            submit() {
+                this.$v.$touch()
+                if (this.$v.$invalid) {
+                    this.submitStatus = 'ERROR'
+                } else {
+                    this.submitStatus = 'PENDING'
+                    setTimeout(() => {
+                        this.submitStatus = 'OK'
+                        setTimeout(() => {
+                            window.location.href="http://localhost:8080/destination"
+                        },1500)                        
+                    }, 1000)
+                }
+                
+            }
+        }
     }
-}
 </script>
 
 <style lang="scss">
-
-    small {
-        font-size: 1rem;
-        font-style: italic;
-        font-weight: bold;
-        color: red;
-    }
-
+@import "../../public/style.scss";
     .blocFormSuscribe {
-            flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding: 10px;
+        text-align: center;
+
+        & h3 {
+            border-top: 1px solid $dark-color;
+            margin: 0px 20px;
             padding: 10px;
-            text-align: center;
+            color: red;
+        }
 
-            & h3 {
-                border-top: 1px solid rgba(0, 0, 0, 0.3);
-                margin: 0px 20px;
-                padding: 10px;
-                color: red;
-            }
+        & .container-input {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
 
-            & .container-input {
+            &__column {
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: space-around;
-
-                &__column {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-            }         
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     }
 
     label {
-            display: none;
+        display: none;
     }
 
     #email,
@@ -156,18 +175,26 @@ export default {
     #firstname,
     #lastname,
     #birthdate {
-        margin: 10px 10px;
+        margin: 10px;
         padding: 10px;
         border-radius: 5px;
-        border: 1px solid rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba($dark-color, 0.3);
         width: 100%;
     }
 
+    .bloc-date {
+        width: 211px;
+
+        & #birthdate {
+            padding: 8.5px 10px;
+        }
+    }
+    
     #country {
         margin: 10px -10px;
-        padding: 10px 0;
+        padding: 10px;
         border-radius: 5px;
-        border: 1px solid rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba($dark-color, 0.3);
         width: 233px;
     }
 
@@ -177,20 +204,29 @@ export default {
     #password::placeholder,
     #firstname::placeholder,
     #lastname::placeholder,
-    #birthdate::placeholder,
+    #birthdate,
     #country {
-        color: red;
+        color: $dark-color;
     }
 
     input:focus-within {
-       outline: 0;
+        outline: 0;
     }
 
     .bloc-checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+
+        & #checkbox {
+            margin: 0 10px;
+        }
+
+        & p {
+            font-weight: bold;
+            color: red;
+        }
     }
 
     .suscribe-button {
@@ -198,9 +234,20 @@ export default {
         border-radius: 10px;
         padding: 10px 0;
         width: 40%;
-        background-color: #2f2f2f;
-        color: #f1f1f1;
+        background-color: $dark-color;
+        color: $light-color;
         border: none;
         cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .error, .submitAlert {
+        font-size: 1rem;
+        font-style: italic;
+        font-weight: bold;
+        color: $dark-color;
     }
 </style>

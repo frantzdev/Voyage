@@ -53,25 +53,26 @@
 </script>
 
 <style lang="scss" scoped>
+@import "../../public/style.scss";
     .card {
         position: absolute;
-        top: 30%;
+        top: 25%;
         left: 50%;
         transform: translateX(-50%);
         max-width: 600px;
         min-height: 300px;
-        background-color: #f1f1f1;
+        background-color: $light-color;
         border-radius: 20px;
         overflow: hidden;
         font-size: 1.2rem;
         flex-wrap: wrap;
 
         &__header {
-            background-color: #2f2f2f;
+            background-color: $dark-color;
             padding: 0 20px;
             display: flex;
             justify-content: space-between;
-            color: #f1f1f1;
+            color: $light-color;
             position: relative;
 
             & h2 {
@@ -80,7 +81,7 @@
 
             &--button {
                 background-color: red;
-                color: #f1f1f1;
+                color: $light-color;
                 font-size: 20px;
                 font-weight: bold;
                 cursor: pointer;
@@ -96,14 +97,14 @@
             padding: 0 10px;
             display: flex;
             justify-content: space-between;
-            background-color: #f1f1f1;
+            background-color: $light-color;
             padding: 0;
             text-align: center;
 
             &--suscribe {
                 padding: 70px 0;
                 width: 100%;
-                border-right: 1px solid rgba(0, 0, 0, 0.3);
+                border-right: 1px solid rgba($dark-color, 0.3);
                 align-self: center;
 
                 & a {
@@ -128,7 +129,7 @@
                     margin: 10px 10px;
                     padding: 10px;
                     border-radius: 5px;
-                    border: 1px solid rgba(0, 0, 0, 0.3);
+                    border: 1px solid rgba($dark-color, 0.3);
                 }
             }
         }
