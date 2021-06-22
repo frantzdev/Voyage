@@ -2,7 +2,7 @@
     <header>
         <transition name="fade">
             <div v-if="displayDropdown">
-                <div class="overlay" @click="displayDropdown = !displayDropdown"></div>
+                <div class="overlay" @click="displayDropdown"></div>
             </div>
         </transition>
         
@@ -13,7 +13,7 @@
                     <div class="dropdown-child" v-if="displayDropdown">
                         <a href="#" @click="displayModaleAccount"><i class="fas fa-user"></i>Mon compte</a>
                         <a href="#" @click="displayModaleAccount"><i class="fas fa-headset"></i>Support 24H/7</a>
-                        <a href="#"><i class="far fa-moon"></i>Dark mode</a>
+                        <a href="#" @click="switchDarkMode()"><i class="far fa-moon"></i>Dark mode</a>
                     </div>
                  </transition>
             </div>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+
 import AccountModale from '../components/AccountModale'
     export default {
         name: "Header",
@@ -32,12 +33,26 @@ import AccountModale from '../components/AccountModale'
         data() {
             return {
                 displayDropdown: false,
-                displayModale: false
+                displayModale: false,
+                darkMode: false
             }
         },
+        
         methods: {
             displayModaleAccount() {
                 this.displayModale = !this.displayModale;
+            },
+            switchDarkMode() {               
+                this.darkMode = !this.darkMode; 
+                // console.log(this.darkMode)     
+                this.toggleDarkMode(this.darkMode);
+                this.setDarkModeLocalStorage(this.darkMode);                
+            },
+            toggleDarkMode(darkMode) {
+                document.documentElement.classList.toggle("dark-mode", darkMode);            
+            },
+            setDarkModeLocalStorage(stateMode) {
+                localStorage.setItem("dark", stateMode);
             }
         }
     }
@@ -47,7 +62,7 @@ import AccountModale from '../components/AccountModale'
     header {
         display: flex;
         justify-content: center;
-        background-color: #f1f1f1;
+        background-color: var(--color-light);
     }
 
     nav {
@@ -57,6 +72,7 @@ import AccountModale from '../components/AccountModale'
         display: flex;
         justify-content: space-between;
         align-items: center;
+        color: var(--color-dark);
     }
 
     p {
@@ -84,11 +100,11 @@ import AccountModale from '../components/AccountModale'
         text-align: start;
         border-radius: 10px;
         padding: 10px;
-        background-color: #f2f2f2;
+        background-color: var(--color-light);
     }
 
     .dropdown-child a {       
-        color: #1f1f1f;
+        color: var(--color-dark);
         padding: 10px;
         margin: 5px 0;
         text-decoration: none;  
@@ -96,8 +112,8 @@ import AccountModale from '../components/AccountModale'
     }
 
     a:hover {
-        background-color: #1f1f1f;
-        color: #f1f1f1;
+        background-color: var(--color-dark);
+        color: var(--color-light);
         animation: essai 2s ease;
     }
 

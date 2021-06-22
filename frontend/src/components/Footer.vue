@@ -27,16 +27,16 @@ export default {
 .container-footer {
     display: flex;
     flex-direction: column;
-    background-color: #f1f1f1;
+    background-color: var(--color-light);
     text-align: center;
     & .link {
         margin-top: 10px;
         & a {
             padding: 0 10px; 
             text-decoration: none;
-            color: #1f1f1f;
+            color: var(--color-dark);
             font-weight: bold;
-            border-right: 1px solid black;
+            border-right: 1px solid var(--color-dark);
         }
         & .contact {
             border: none;
@@ -48,7 +48,7 @@ export default {
         & a {
             padding: 0 20px;
             text-decoration: none;
-            color: #1f1f1f;
+            color: var(--color-dark);
             font-weight: bold;
             & .fab {
                 font-size: 2em;

@@ -55,7 +55,7 @@
                     <input type="checkbox" id="checkbox" v-model="checked" required>
                     <p>J'accepte la politique de confidentialité</p>
                 </div>
-                <button type="submit" role="submit" class="suscribe-button"
+                <button type="submit" role="submit" class="suscribe-button" 
                     :disabled="submitStatus === 'PENDING'">Valider</button>
             </div>
         </form>
@@ -140,17 +140,16 @@
 </script>
 
 <style lang="scss">
-@import "../../public/style.scss";
     .blocFormSuscribe {
         flex-wrap: wrap;
         padding: 10px;
         text-align: center;
 
         & h3 {
-            border-top: 1px solid $dark-color;
+            border-top: 1px solid var(--color-dark);
             margin: 0px 20px;
             padding: 10px;
-            color: red;
+            color: var(--color-form-light);
         }
 
         & .container-input {
@@ -225,7 +224,7 @@
 
         & p {
             font-weight: bold;
-            color: red;
+            color: var(--color-form-light);
         }
     }
 
@@ -234,8 +233,8 @@
         border-radius: 10px;
         padding: 10px 0;
         width: 40%;
-        background-color: $dark-color;
-        color: $light-color;
+        background-color: var(--color-dark);
+        color: var(--color-light);
         border: none;
         cursor: pointer;
 
@@ -248,6 +247,6 @@
         font-size: 1rem;
         font-style: italic;
         font-weight: bold;
-        color: $dark-color;
+        color: var(--color-dark);
     }
 </style>

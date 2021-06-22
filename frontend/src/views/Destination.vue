@@ -78,7 +78,7 @@ export default {
         align-items: center;
         & h1 {
             text-align: center;    
-            color: #f1f1f1;
+            color: $light-color;
             font-size: 2rem;
             padding: 50px;
         }
@@ -95,10 +95,11 @@ export default {
             margin: 20px;
             width: 29%;        
             border-radius: 20px;
-            background-color: white;
+            background-color: var(--color-light);
             text-align: center;
             overflow: hidden;
-            box-shadow: 10px 10px 50px #f1f1f1;
+            box-shadow: 10px 10px 50px var(--color-light);
+            color: var(--color-dark);
             & img {   /*image dans l'item*/
                 width: 100%;
                 height: 250px;
@@ -115,7 +116,7 @@ export default {
                 display: flex;
                 & p {
                     text-align: center;
-                    border-right: 1px solid #1f1f1f;
+                    border-right: 1px solid var(--color-dark);
                 }
                 &--button {
                     align-self: center;
@@ -123,8 +124,8 @@ export default {
                     width: 40%;
                     margin: 10px 10px;
                     padding: 10px 20px;
-                    background-color: #1f1f1f;
-                    color: #f1f1f1;
+                    background-color: var(--color-dark);
+                    color: var(--color-light);
                     cursor: pointer;
                     border-radius: 20px;
                     border: none;

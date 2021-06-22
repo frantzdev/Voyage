@@ -18,3 +18,16 @@ body {
 .fade-enter, .fade-leave-to {
     opacity: 0;
 }
+
+:root {
+    --color-light: #f1f1f1;
+    --color-dark: #2f2f2f;
+    --color-form-light: red;
+}
+
+.dark-mode {
+    --color-light: #2f2f2f;
+    --color-dark: #f1f1f1;
+    --color-form-light: rgb(235, 119, 11);
+}
+

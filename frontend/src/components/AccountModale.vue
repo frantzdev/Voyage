@@ -11,7 +11,7 @@
 
             <div class="card__account">
                 <div class="card__account--suscribe">
-                    <a href="#" title="s'inscrire" @click="displayFormSuscribe">Créer mon compte</a>
+                    <a href="#" title="s'inscrire" @click="displayFormSuscribe()">Créer mon compte</a>
                 </div>
                 <div class="card__account--login">
                     <h3>J'ai déjà un compte</h3>
@@ -24,7 +24,7 @@
                     </form>
                 </div>
             </div>
-            <FormSuscribe :displaySuscribe="displaySuscribe" />
+            <FormSuscribe :displaySuscribe="displaySuscribe"/>
         </div>
     </div>
 
@@ -40,7 +40,7 @@
         props: ['displayModale', 'displayModaleAccount'],
         data() {
             return {
-                displaySuscribe: false,
+                displaySuscribe: false
             }
         },
 
@@ -52,8 +52,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
-@import "../../public/style.scss";
+<style lang="scss">
     .card {
         position: absolute;
         top: 25%;
@@ -61,18 +60,18 @@
         transform: translateX(-50%);
         max-width: 600px;
         min-height: 300px;
-        background-color: $light-color;
+        background-color: var(--color-light);
         border-radius: 20px;
         overflow: hidden;
         font-size: 1.2rem;
         flex-wrap: wrap;
 
         &__header {
-            background-color: $dark-color;
+            background-color: var(--color-dark);
             padding: 0 20px;
             display: flex;
             justify-content: space-between;
-            color: $light-color;
+            color: var(--color-light);
             position: relative;
 
             & h2 {
@@ -80,8 +79,8 @@
             }
 
             &--button {
-                background-color: red;
-                color: $light-color;
+                background-color: var(--color-form-light);
+                color: #f1f1f1;
                 font-size: 20px;
                 font-weight: bold;
                 cursor: pointer;
@@ -97,7 +96,7 @@
             padding: 0 10px;
             display: flex;
             justify-content: space-between;
-            background-color: $light-color;
+            background-color: var(--color-light);
             padding: 0;
             text-align: center;
 
@@ -109,7 +108,7 @@
 
                 & a {
                     text-decoration: none;
-                    color: red;
+                    color: var(--color-form-light);
                     font-size: 1.17em;
                     font-weight: bold;
                 }
@@ -120,7 +119,7 @@
                 width: 100%;
 
                 & h3 {
-                    color: red;
+                    color: var(--color-form-light);
                 }
 
                 & #email-login,
