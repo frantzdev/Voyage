@@ -2,20 +2,20 @@
     <header>
         <transition name="fade">
             <div v-if="displayDropdown">
-                <div class="overlay" @click="displayDropdown"></div>
+                <div class="overlay" @click="displayDropdown = !displayDropdown"></div>
             </div>
         </transition>
         
         <nav>
             <p>Logo</p>
             <div class="dropdown" @click="displayDropdown = !displayDropdown"><i class="fas fa-bars"></i>
-                <transition name="fade">
+                <!-- <transition name="fade"> -->
                     <div class="dropdown-child" v-if="displayDropdown">
-                        <a href="#" @click="displayModaleAccount"><i class="fas fa-user"></i>Mon compte</a>
-                        <a href="#" @click="displayModaleAccount"><i class="fas fa-headset"></i>Support 24H/7</a>
-                        <a href="#" @click="switchDarkMode()"><i class="far fa-moon"></i>Dark mode</a>
+                        <a role="button" type="button" @click="displayModaleAccount"><i class="fas fa-user"></i>Mon compte</a>
+                        <a role="button" type="button" @click="displayModaleAccount"><i class="fas fa-headset"></i>Support 24H/7</a>
+                        <a role="button" type="button" @click="switchDarkMode()"><i class="far fa-moon"></i>Dark mode</a>
                     </div>
-                 </transition>
+                 <!-- </transition> -->
             </div>
         </nav>
         <AccountModale :displayModale="displayModale" :displayModaleAccount="displayModaleAccount"/>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 import AccountModale from '../components/AccountModale'
     export default {
         name: "Header",
@@ -37,22 +36,26 @@ import AccountModale from '../components/AccountModale'
                 darkMode: false
             }
         },
-        
+
+        mounted() {
+            this.toggleDarkMode(localStorage.getItem("dark") == "true")
+        },
+              
         methods: {
             displayModaleAccount() {
                 this.displayModale = !this.displayModale;
             },
             switchDarkMode() {               
                 this.darkMode = !this.darkMode; 
-                // console.log(this.darkMode)     
+                console.log(this.darkMode)     
                 this.toggleDarkMode(this.darkMode);
                 this.setDarkModeLocalStorage(this.darkMode);                
             },
             toggleDarkMode(darkMode) {
                 document.documentElement.classList.toggle("dark-mode", darkMode);            
             },
-            setDarkModeLocalStorage(stateMode) {
-                localStorage.setItem("dark", stateMode);
+            setDarkModeLocalStorage(darkMode) {
+                localStorage.setItem("dark", darkMode);
             }
         }
     }

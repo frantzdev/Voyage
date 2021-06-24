@@ -28,6 +28,6 @@ body {
 .dark-mode {
     --color-light: #2f2f2f;
     --color-dark: #f1f1f1;
-    --color-form-light: rgb(235, 119, 11);
+    --color-form-light: rgb(224, 112, 7);
 }
 
