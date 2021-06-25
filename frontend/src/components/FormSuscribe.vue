@@ -68,10 +68,11 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import { minLength } from 'vuelidate/lib/validators';
     export default {
         name: 'FormSuscribe',
-        props: ["displaySuscribe"],
+        props: ["displaySuscribe", 'displayModaleAccount', 'displayFormSuscribe'],
 
         data() {
             return {
@@ -126,14 +127,26 @@
                     this.submitStatus = 'ERROR'
                 } else {
                     this.submitStatus = 'PENDING'
-                    setTimeout(() => {
-                        this.submitStatus = 'OK'
+                    axios.post(this.$url + "api/auth/signup", {
+                        firstname: this.firstname,
+                        lastname: this.lastname,
+                        email: this.email,
+                        password: this.password,
+                        birthdate: this.birthdate,
+                        country: this.selected
+                    })
+                    .then(response => { 
+                        console.log(response);
                         setTimeout(() => {
-                            window.location.href="http://localhost:8080/destination"
+                            this.submitStatus = 'OK'
+                            setTimeout(() => {
+                                this.displayFormSuscribe();
+                                this.displayModaleAccount();
                         },1500)                        
-                    }, 1000)
-                }
-                
+                            }, 1000)
+                    })
+                    .catch(error => console.log('Nous rencontrons un problème pour joindre le serveur',error));                     
+                }                
             }
         }
     }

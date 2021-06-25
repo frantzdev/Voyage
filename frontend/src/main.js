@@ -6,6 +6,9 @@ import Vuelidate from 'vuelidate'
 
 Vue.use(Vuelidate)
 
+/*variable globale*/
+Vue.prototype.$url = "http://localhost:3000/";
+
 Vue.config.productionTip = false
 
 new Vue({

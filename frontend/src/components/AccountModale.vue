@@ -5,32 +5,33 @@
         <div class="card">
             <div class="card__header">
                 <h2>Créez votre compte</h2>
-                <button class="card__header--button" role="button" type="button"
-                    @click="displayModaleAccount(); displaySuscribe = false">X</button>
+                <div class="card__header--button" role="button" type="button"
+                    @click="displayModaleAccount(); displaySuscribe = false"><i class="fas fa-times-circle"></i></div>
             </div>
 
             <div class="card__account">
                 <div class="card__account--suscribe">
-                    <a href="#" title="s'inscrire" @click="displayFormSuscribe()">Créer mon compte</a>
+                    <a role="button" type="button" title="S'inscrire" @click="displayFormSuscribe()">Créer mon compte</a>
                 </div>
                 <div class="card__account--login">
                     <h3>J'ai déjà un compte</h3>
                     <form action="">
                         <label for="email-login">Entrez votre email</label>
-                        <input type="email" placeholder="Email" id="email-login" required>
+                        <input type="email" placeholder="Email" id="email-login" required v-model="email">
                         <label for="password-login">Entrez votre mot de passe</label>
-                        <input type="password" placeholder="********" id="password-login" autocomplete="off" required>
-                        <button type="button" role="submit" class="suscribe-button">Valider</button>
+                        <input type="password" placeholder="********" id="password-login" autocomplete="off" required v-model="password">
+                        <button type="button" role="submit" class="suscribe-button" @click="submitLogin">Valider</button>
                     </form>
                 </div>
             </div>
-            <FormSuscribe :displaySuscribe="displaySuscribe"/>
+            <FormSuscribe :displaySuscribe="displaySuscribe" :displayModaleAccount="displayModaleAccount" :displayFormSuscribe="displayFormSuscribe"/>
         </div>
     </div>
 
 </template>
 
 <script>
+    import axios from 'axios'
     import FormSuscribe from '../components/FormSuscribe.vue'
     export default {
         name: "AccountModale",
@@ -40,13 +41,28 @@
         props: ['displayModale', 'displayModaleAccount'],
         data() {
             return {
-                displaySuscribe: false
+                displaySuscribe: false,
+                email: "",
+                password: ""
             }
         },
 
         methods: {
             displayFormSuscribe() {
                 this.displaySuscribe = !this.displaySuscribe;
+            },
+
+            submitLogin() {
+                axios.post(this.$url + "api/auth/login", {
+                    email: this.email,
+                    password: this.password
+                })
+                .then(response => {
+                    console.log(response);
+                    this.displayModaleAccount();
+                    document.location.reload();
+                })
+                .catch(error => console.log(error));
             }
         }
     }
@@ -68,27 +84,22 @@
 
         &__header {
             background-color: var(--color-dark);
-            padding: 0 20px;
+            padding: 0 10px;
             display: flex;
+            align-items: baseline;
             justify-content: space-between;
             color: var(--color-light);
-            position: relative;
 
             & h2 {
                 margin: 10px 0;
             }
 
             &--button {
-                background-color: var(--color-form-light);
-                color: #f1f1f1;
-                font-size: 20px;
-                font-weight: bold;
+                background-color: var(--color-dark);
+                color: var(--color-light);
+                font-size: 30px;
                 cursor: pointer;
-                border-radius: 20px;
                 border: none;
-                position: absolute;
-                top: 25%;
-                right: 10px;
             }
         }
 
@@ -111,6 +122,7 @@
                     color: var(--color-form-light);
                     font-size: 1.17em;
                     font-weight: bold;
+                    cursor: pointer;
                 }
             }
 
