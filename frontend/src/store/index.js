@@ -8,11 +8,13 @@ export default new Vuex.Store({
     // image: require('@/assets/rose.jpg'),
     title: "La planete rose",
     range: "",
-    price: ""
+    price: "",
+    itemModale: false,
   },
   mutations: {
-  },
-  actions: {
+    TOGGLE_MODALE(state) {
+      state.itemModale = !state.itemModale;
+    }
   },
   modules: {
   }

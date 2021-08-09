@@ -11,29 +11,34 @@
             <div class="dropdown" @click="displayDropdown = !displayDropdown"><i class="fas fa-bars"></i>
                 <!-- <transition name="fade"> -->
                     <div class="dropdown-child" v-if="displayDropdown">
-                        <a role="button" type="button" @click="displayModaleAccount"><i class="fas fa-user"></i>Mon compte</a>
-                        <a role="button" type="button" @click="displayModaleAccount"><i class="fas fa-headset"></i>Support 24H/7</a>
+                        <a role="button" type="button" @click="displayModaleAccount()"><i class="fas fa-user"></i>Mon compte</a>
+                        <a role="button" type="button" @click="displayModaleAccount()"><i class="fas fa-headset"></i>Support 24H/7</a>
                         <a role="button" type="button" @click="switchDarkMode()"><i class="far fa-moon"></i>Dark mode</a>
+                        <a role="button" type="button" @click="displayModaleAdmin()">Administrer</a>
+
                     </div>
                  <!-- </transition> -->
             </div>
         </nav>
         <AccountModale :displayModale="displayModale" :displayModaleAccount="displayModaleAccount"/>
+        <Admin :displayModaleAdmin="displayModaleAdmin" :displayAdmin="displayAdmin"/>
     </header>
 </template>
 
 <script>
 import AccountModale from '../components/AccountModale'
+import Admin from '../components/Admin'
     export default {
         name: "Header",
         components: {
-            AccountModale
+            AccountModale, Admin
         },    
         data() {
             return {
                 displayDropdown: false,
                 displayModale: false,
-                darkMode: false
+                darkMode: false,
+                displayAdmin: false
             }
         },
 
@@ -56,6 +61,9 @@ import AccountModale from '../components/AccountModale'
             },
             setDarkModeLocalStorage(darkMode) {
                 localStorage.setItem("dark", darkMode);
+            },
+            displayModaleAdmin() {
+                this.displayAdmin = !this.displayAdmin;
             }
         }
     }

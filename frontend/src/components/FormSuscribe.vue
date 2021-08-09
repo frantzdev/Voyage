@@ -38,7 +38,7 @@
                 </div>
                 <div class="container-input__column">
                     <label for="country">Selectionner votre nationalité</label>
-                    <select id="country" v-model="selected" required>
+                    <select id="country" name="country" v-model="selected" required>
                         <option disabled value=""> Pays</option>
                         <option>Espagne</option>
                         <option>France</option>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="bloc-checkbox">
                     <label for="checkbox">Cliquer pour confirmer la politique de confidentialité</label>
-                    <input type="checkbox" id="checkbox" v-model="checked" required>
+                    <input type="checkbox" id="checkbox" name="checkbox" v-model="checked" required>
                     <p>J'accepte la politique de confidentialité</p>
                 </div>
                 <button type="submit" role="submit" class="suscribe-button" 
@@ -152,7 +152,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .blocFormSuscribe {
         flex-wrap: wrap;
         padding: 10px;
@@ -188,7 +188,7 @@
     #lastname,
     #birthdate {
         margin: 10px;
-        padding: 10px;
+        padding: 10px; /*firefox passer 20px sur gauche droite*/
         border-radius: 5px;
         border: 1px solid rgba($dark-color, 0.3);
         width: 100%;
