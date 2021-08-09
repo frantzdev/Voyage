@@ -1,5 +1,5 @@
 <template>
-    <div class="item-modale" >
+    <div class="item-modale">
         <div class="overlays" @click="displayModale()"></div>
         <div class="card-item" >
             <h1 @click="displayModale()">hello{{itemModale}}</h1>

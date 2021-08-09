@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+label {
+    display: block;
+}
     .destination {
         position: absolute;
         top: 25%;

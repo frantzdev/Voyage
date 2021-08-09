@@ -34,7 +34,7 @@ const errorHandler = error => {
       throw error;
   }
 };
-
+const host = process.env.HOST || '3000';
 const server = http.createServer(app);
 
 server.on('error', errorHandler);

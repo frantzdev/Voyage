@@ -10,7 +10,7 @@ exports.postPlanete = async (req, res, next) =>{
     content: req.body.content,
     range: req.body.range,
     price: req.body.price,
-    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    image: process.env.URL + `/images/${req.file.filename}`
     } : { ...req.body }
   const planetes = await models.Planete.create(newItem)
   planetes.save()

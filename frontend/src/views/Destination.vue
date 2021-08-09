@@ -7,10 +7,10 @@
                 <div class="container__block-items" v-for="item in dataBase" :key="item.title" :id="item.id">
                    <img :src="item.image" :alt="item.descriptifPhoto" :title="item.titlePhoto">
                     <h2>{{item.title}}</h2>
-                    <p>{{item.content}}</p>
+                    <p class="container__block-items--content">{{item.content}}</p>
                     <div class="container__block-items__details">
-                        <p>Distance {{item.range}} millions de km</p><br>
-                        <p>Prix {{item.price}} €</p>
+                        <p class="container__block-items__details--range">Distance {{item.range}} millions de km</p><br>
+                        <p class="container__block-items__details--price">Prix {{item.price}} €</p>
                         <button type="button" role="button" title="Voir le détail de l'offre" class="container__block-items__details--button"
                         @click="displayModale(item.id)">Voir l'offre</button>
                     </div> 
@@ -35,7 +35,7 @@ export default {
     }, 
 
     mounted() {
-        axios.get("http://localhost:3000/api/")
+        axios.get(this.$url + "api/")
          .then(response => { 
                 this.dataBase = response.data;
                 console.log(this.dataBase);
@@ -66,7 +66,7 @@ export default {
     },
 
     computed: {  /* test*/
-        ...mapState(['image', 'title', 'range', 'price', 'itemModale', 'items[photo, title, id]']),
+        ...mapState(['itemModale']),
     }
 }
 </script>
@@ -86,7 +86,6 @@ export default {
             padding: 50px;
         }
     }
-
 
     .container {  /*block de tout les items*/
         margin-bottom: 100px;
@@ -111,14 +110,19 @@ export default {
             & h2 {
                 margin: 5px 0;
             }
-            & p {
+            &--content {
                 padding: 0 10px;
                 text-align: justify;
                 margin: 10px 0;
             }
             &__details {
                 display: flex;
-                & p {
+                &--range {
+                    text-align: center;
+                    border-right: 1px solid var(--color-dark);
+                }
+                &--price {
+                    padding: 0 10px;
                     text-align: center;
                     border-right: 1px solid var(--color-dark);
                 }
@@ -126,7 +130,7 @@ export default {
                     align-self: center;
                     width: 40%;
                     margin: 10px 5px;
-                    padding: 10px 10px;
+                    padding: 10px;
                     background-color: var(--color-dark);
                     color: var(--color-light);
                     cursor: pointer;

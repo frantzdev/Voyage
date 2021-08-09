@@ -69,6 +69,9 @@
 </script>
 
 <style lang="scss">
+    label {
+        display: none;
+    }
     .card {
         position: absolute;
         top: 25%;
@@ -143,6 +146,21 @@
                     border: 1px solid rgba($dark-color, 0.3);
                 }
             }
+        }
+    }
+
+    .suscribe-button {
+        margin-top: 10px;
+        border-radius: 10px;
+        padding: 10px 0;
+        width: 40%;
+        background-color: var(--color-dark);
+        color: var(--color-light);
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
         }
     }
 
